@@ -1,0 +1,78 @@
+Section 1: Authentication & User Accounts
+
+- Register a Service Provider
+
+
+http://localhost:5000/api/auth/register
+
+{
+    "name": "Aman Yusuf",
+    "email":"aman@gmail.com",
+    "password": "aman123",
+    "phone":"+251978456865",
+    "role": "provider"
+}
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjdiYmNlOTg3YjQxOTg1NDNkZTU2NyIsInJvbGUiOiJwcm92aWRlciIsImlhdCI6MTc4MDk4ODg3OCwiZXhwIjoxNzgzNTgwODc4fQ.masiqC_G7cCjQBibhVV2md7N7tUaX0oOir8saXYGZ70
+
+- Register the Admin Account
+
+http://localhost:5000/api/auth/register
+
+{
+    "name": "ASSIST Admin",
+    "email": "Admin@gmail.com",
+    "password":"admin123",
+    "phone":"+251978457865",
+    "role":"admin"
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjdiZDBjOTg3YjQxOTg1NDNkZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MDk4OTE5NiwiZXhwIjoxNzgzNTgxMTk2fQ.KW4RXN8AAHZQLLJ_GXjW1uBZdjCvqk8yFyK0-Tlas
+
+
+
+- Account Login for both Admin and Provider
+
+http://localhost:5000/api/auth/login
+
+provider sample data
+
+{
+    "email":"aman@gmail.com",
+    "password":"aman123"
+}
+
+admin sample data
+
+{
+    "email":"Admin@gmail.com",
+    "password":"admin123"
+}
+
+
+Section 2 : Service Provider Listings
+
+- Create a Service
+
+http://localhost:5000/api/services
+
+Service sample data
+
+Authorization
+
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjdiYmNlOTg3YjQxOTg1NDNkZTU2NyIsInJvbGUiOiJwcm92aWRlciIsImlhdCI6MTc4MDk4ODg3OCwiZXhwIjoxNzgzNTgwODc4fQ.masiqC_G7cCjQBibhVV2md7N7tUaX0oOir8saXYGZ70
+
+{
+    "title":"Residential Plumbing Fixes",
+    "category":"plumber",
+    "description":"Fixing broken pipes, water leaks, and cogged drains quickly"
+}
+
+
+Section 3: User Access without Login (Public)
+
+No token or Login Required
+
+http://localhost:5000/api/services
+

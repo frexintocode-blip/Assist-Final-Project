@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #2f3033;
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #111213;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #0070cd !important;
+  border-color: #0070cd !important;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+}
+
+.btn-primary:hover {
+  background-color: #005aab !important;
+}
+
+.card {
+  border: 1px solid #e9ecd0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.form-control, .form-select {
+  border: 1px solid #ccd0d5;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0070cd;
+  box-shadow: 0 0 0 3px rgba(0, 112, 205, 0.15);
+}
