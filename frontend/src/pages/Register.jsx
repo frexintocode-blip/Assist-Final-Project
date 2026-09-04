@@ -21,6 +21,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     const data = new FormData();
     data.append('name', formData.name);
     data.append('email', formData.email);
@@ -36,9 +38,8 @@ const Register = () => {
     }
 
     try {
-      await API.post('/auth/register', data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      // Do not manually set Content-Type header; Axios auto-detects FormData and sets the correct multipart boundary
+      await API.post('/auth/register', data);
       alert('Account created successfully! Please Login.');
       navigate('/login');
     } catch (err) {
@@ -70,7 +71,6 @@ const Register = () => {
               <label className="form-label small fw-semibold">Phone Number</label>
               <input type="text" name="phone" className="form-control" onChange={handleChange} required />
             </div>
-            
 
             {formData.role === 'provider' && (
               <div className="border p-3 bg-light rounded-3 mb-3">
@@ -80,7 +80,7 @@ const Register = () => {
                 </div>
                 <div className="mb-0">
                   <label className="form-label small fw-semibold">Business License File</label>
-                  <input type="file" className="form-control" onChange={handleFileChange}  />
+                  <input type="file" className="form-control" onChange={handleFileChange} />
                 </div>
               </div>
             )}

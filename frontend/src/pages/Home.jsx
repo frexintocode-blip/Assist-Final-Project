@@ -225,7 +225,7 @@ const Home = () => {
                   )}
                 </div>
 
-                {/* Dispatch Admin Contact Info */}
+                {/*  Admin Contact Info */}
                 <div className="p-3 bg-primary-subtle bg-opacity-50 rounded-3 border border-primary-subtle">
                   <h6 className="fw-bold text-primary mb-1" style={{ fontSize: '0.95rem' }}>Book via Dispatch Admin</h6>
                   <p className="small text-secondary mb-2" style={{ fontSize: '0.8rem' }}>To request this provider, contact our dispatch team:</p>
