@@ -1,10 +1,7 @@
+// backend/utils/upload.js
 import multer from 'multer';
-import path from 'path';
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, `${req.user ? req.user._id : 'register'}-${Date.now()}${path.extname(file.originalname)}`)
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
