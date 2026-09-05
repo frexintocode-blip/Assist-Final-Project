@@ -21,7 +21,7 @@ const serviceSchema = new mongoose.Schema({
   title: { type: String },
   category: { type: String },
   description: { type: String },
-  certificationFile: { type: String, default: '' }, // Updated here as well
+  certificationFile: { data: Buffer, contentType: String}, // Updated here as well
   yearsOfExperience: { type: Number }
 }
 }, { timestamps: true });
