@@ -5,7 +5,10 @@ const serviceSchema = new mongoose.Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['electrician', 'tutor', 'plumber', 'dishworker', 'carpenter', 'painter', 'cleaner', 'mechanic'], required: true },
   description: { type: String, required: true },
-  certificationFile: { type: String, default: '' },
+  certificationFile: {
+    data: Buffer,
+    contentType: String
+  },
   yearsOfExperience: { type: Number, default: '' },
   status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
   
@@ -18,12 +21,15 @@ const serviceSchema = new mongoose.Schema({
   isUpdatePending: { type: Boolean, default: false },
   
   pendingUpdates: {
-  title: { type: String },
-  category: { type: String },
-  description: { type: String },
-  certificationFile: { data: Buffer, contentType: String}, // Updated here as well
-  yearsOfExperience: { type: Number }
-}
+    title: { type: String },
+    category: { type: String },
+    description: { type: String },
+    certificationFile: {
+      data: Buffer,
+      contentType: String
+    },
+    yearsOfExperience: { type: Number }
+  }
 }, { timestamps: true });
 
 export default mongoose.model('Service', serviceSchema);
