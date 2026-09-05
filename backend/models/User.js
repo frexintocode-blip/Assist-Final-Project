@@ -6,9 +6,12 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   phone: { type: String, required: true },
   role: { type: String, enum: ['provider', 'admin'], default: 'provider' },
-  businessLicenseFile: { type: String, default: '' },
+  businessLicenseFile: {
+    data: Buffer,
+    contentType: String
+  },
   businessLocation: { type: String },
-  completedJobsCount: { type: Number}, 
+  completedJobsCount: { type: Number }, 
   adminRatingScore: { type: Number, min: 0, max: 5 } 
 }, { timestamps: true });
 
