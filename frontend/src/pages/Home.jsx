@@ -195,7 +195,7 @@ const Home = () => {
                       <div className="p-3 bg-light rounded-3 text-center border h-100 d-flex flex-column justify-content-center align-items-center">
                         <h6 className="fw-bold text-dark mb-2" style={{ fontSize: '0.85rem' }}>Business License</h6>
                         <a 
-                          href={`http://localhost:5000${selectedService.provider?.businessLicenseFile || selectedService.businessLicenseFile}`} 
+                          href={`${import.meta.env.VITE_API_URL}${selectedService.provider?.businessLicenseFile || selectedService.businessLicenseFile}`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="btn btn-outline-primary btn-sm rounded-pill w-100 py-1"
@@ -212,7 +212,7 @@ const Home = () => {
                       <div className="p-3 bg-light rounded-3 text-center border h-100 d-flex flex-column justify-content-center align-items-center">
                         <h6 className="fw-bold text-dark mb-2" style={{ fontSize: '0.85rem' }}>Certifications</h6>
                         <a 
-                          href={`http://localhost:5000${selectedService.provider?.certificationFile || selectedService.certificationFile}`} 
+                          href={`${import.meta.env.VITE_API_URL}${selectedService.provider?.certificationFile || selectedService.certificationFile}`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="btn btn-outline-primary btn-sm rounded-pill w-100 py-1"
