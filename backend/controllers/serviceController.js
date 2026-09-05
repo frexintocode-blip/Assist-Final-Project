@@ -10,7 +10,10 @@ export const createService = catchError(async (req, res) => {
     category,
     description,
     yearsOfExperience,
-    certificationFile: req.file ? `/${req.file.path.replace(/\\/g, '/')}` : ''
+    certificationFile: req.file ? {
+      data: req.file.buffer,
+      contentType: req.file.mimetype
+    } : undefined
   });
 
   res.status(201).json({ success: true, data: service });
@@ -52,7 +55,10 @@ export const requestServiceUpdate = catchError(async (req, res) => {
 
   delete updateData.rating;
   if (req.file) {
-    updateData.certificationFile = `/${req.file.path.replace(/\\/g, '/')}`;
+    updateData.certificationFile = {
+      data: req.file.buffer,
+      contentType: req.file.mimetype
+    };
   }
 
   service.pendingUpdates = updateData;
