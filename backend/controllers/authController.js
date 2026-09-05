@@ -24,7 +24,10 @@ export const registerUser = catchError(async (req, res) => {
     phone,
     role: role || 'provider',
     businessLocation,
-    businessLicenseFile: req.file ? `/${req.file.path.replace(/\\/g, '/')}` : ''
+    businessLicenseFile: req.file ? {
+      data: req.file.buffer,
+      contentType: req.file.mimetype
+    } : undefined
   });
 
   res.status(201).json({
