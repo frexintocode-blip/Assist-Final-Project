@@ -5,8 +5,8 @@ const serviceSchema = new mongoose.Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['electrician', 'tutor', 'plumber', 'dishworker', 'carpenter', 'painter', 'cleaner', 'mechanic'], required: true },
   description: { type: String, required: true },
-  certificationFile: { data: Buffer, contentType: String, default: '' },
-  yearsOfExperience: { type: Number, default: '' },
+  certificationFile: { data: Buffer, contentType: String },
+  yearsOfExperience: { type: Number},
   status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
   
   contactChannel: {
