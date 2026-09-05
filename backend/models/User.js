@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['provider', 'admin'], default: 'provider' },
   businessLicenseFile: {
     data: Buffer,
-    contentType: String
+    contentType: String,
+    default:''
   },
   businessLocation: { type: String },
   completedJobsCount: { type: Number }, 
