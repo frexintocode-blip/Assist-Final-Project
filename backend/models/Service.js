@@ -5,11 +5,16 @@ const serviceSchema = new mongoose.Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['electrician', 'tutor', 'plumber', 'dishworker', 'carpenter', 'painter', 'cleaner', 'mechanic'], required: true },
   description: { type: String, required: true },
+<<<<<<< HEAD
   certificationFile: {
     data: Buffer,
     contentType: String
   },
   yearsOfExperience: { type: Number, default: '' },
+=======
+  certificationFile: { data: Buffer, contentType: String },
+  yearsOfExperience: { type: Number},
+>>>>>>> 6e18128df8e9d6804b54149c14ea62f68cce3350
   status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
   
   contactChannel: {
