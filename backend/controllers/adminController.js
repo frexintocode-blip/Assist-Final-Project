@@ -94,3 +94,27 @@ export const deleteProvider = catchError(async (req, res) => {
   await Service.deleteMany({ provider: provider._id });
   res.json({ success: true, message: 'Provider account and linked metrics permanently dissolved.' });
 });
+
+export const downloadBusinessLicense = catchError(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user || !user.businessLicenseFile || !user.businessLicenseFile.data) {
+    res.status(404);
+    throw new Error('Business license file not found.');
+  }
+
+  res.set('Content-Type', user.businessLicenseFile.contentType || 'application/octet-stream');
+  res.set('Content-Disposition', `inline; filename="business-license-${user._id}"`);
+  res.send(user.businessLicenseFile.data);
+});
+
+export const downloadCertificationFile = catchError(async (req, res) => {
+  const service = await Service.findById(req.params.id);
+  if (!service || !service.certificationFile || !service.certificationFile.data) {
+    res.status(404);
+    throw new Error('Certification file not found.');
+  }
+
+  res.set('Content-Type', service.certificationFile.contentType || 'application/octet-stream');
+  res.set('Content-Disposition', `inline; filename="certification-${service._id}"`);
+  res.send(service.certificationFile.data);
+});
