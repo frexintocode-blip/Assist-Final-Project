@@ -5,6 +5,28 @@ import { catchError } from '../utils/catchError.js';
 
 const genToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
+// Helper function to send token via httpOnly cookie
+const sendTokenResponse = (user, statusCode, res) => {
+  const token = genToken(user._id);
+
+  const options = {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  };
+
+  res.status(statusCode)
+    .cookie('token', token, options)
+    .json({
+      success: true,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role
+    });
+};
+
 export const registerUser = catchError(async (req, res) => {
   const { name, email, password, phone, role, businessLocation } = req.body;
 
@@ -30,13 +52,12 @@ export const registerUser = catchError(async (req, res) => {
     } : undefined
   });
 
-  res.status(201).json({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    token: genToken(user._id)
-  });
+  if (user) {
+    sendTokenResponse(user, 201, res);
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data.');
+  }
 });
 
 export const loginUser = catchError(async (req, res) => {
@@ -44,13 +65,7 @@ export const loginUser = catchError(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      token: genToken(user._id)
-    });
+    sendTokenResponse(user, 200, res);
   } else {
     res.status(401);
     throw new Error('Invalid email or password.');
