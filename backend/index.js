@@ -1,6 +1,7 @@
 // index.js
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser'; // 1. Import cookie-parser
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
@@ -13,8 +14,12 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: true, 
+    credentials: true 
+}));
 app.use(express.json());
+app.use(cookieParser()); // 3. Register cookie-parser middleware
 
 // Main Routing Mounting Handlers
 app.use('/api/auth', authRoutes);
