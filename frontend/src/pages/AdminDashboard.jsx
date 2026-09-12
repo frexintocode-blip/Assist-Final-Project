@@ -302,24 +302,12 @@ const AdminDashboard = () => {
                                 <p className="mb-1 text-secondary">
                                   <strong>Phone:</strong> {providerObj.phone || "N/A"}
                                 </p>
-                                <p className="mb-2 text-secondary">
+                                <p className="mb-0 text-secondary">
                                   <strong>Assigned Rating:</strong> ★{" "}
                                   {providerObj.adminRatingScore ||
                                     item.rating ||
                                     "Unrated"}
                                 </p>
-                                {providerId && (
-                                  <div className="mt-2">
-                                    <a
-                                      href={`http://localhost:5000/api/admin/provider/${providerId}/license`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="btn btn-sm btn-outline-primary rounded-pill w-100"
-                                    >
-                                      Download Business License
-                                    </a>
-                                  </div>
-                                )}
                               </div>
                             )}
                           </div>
@@ -409,17 +397,6 @@ const AdminDashboard = () => {
                                 No pending modification updates for this listing.
                               </p>
                             )}
-
-                            <div className="mb-3">
-                              <a
-                                href={`http://localhost:5000/api/admin/service/${itemId}/certification`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-sm btn-outline-info rounded-pill w-100"
-                              >
-                                Download Certification File
-                              </a>
-                            </div>
 
                             <div className="p-3 bg-white rounded-3 border border-light-subtle mb-3 shadow-sm">
                               <label className="form-label small fw-bold text-secondary mb-2">
