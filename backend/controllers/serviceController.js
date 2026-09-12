@@ -10,7 +10,6 @@ export const createService = catchError(async (req, res) => {
     category,
     description,
     yearsOfExperience,
-    status: 'pending',
     certificationFile: req.file ? {
       data: req.file.buffer,
       contentType: req.file.mimetype
@@ -27,7 +26,8 @@ export const getApprovedServices = catchError(async (req, res) => {
   if (category) filter.category = category;
 
   const services = await Service.find(filter)
-    .populate('provider', 'name adminRatingScore completedJobsCount businessLocation businessLicenseFile certificationFile');
+    .populate('provider', 'name adminRatingScore completedJobsCount businessLocation businessLicenseFile certificationFile')
+    .sort({ 'provider.adminRatingScore': -1 });
 
   const adminContact = {
     phone: process.env.ADMIN_PHONE || "+251 911 00 00 00",
@@ -74,9 +74,33 @@ export const getMyServices = catchError(async (req, res) => {
 });
 
 export const getServiceById = catchError(async (req, res) => {
-  const service = await Service.findById(req.params.id).populate('provider', 'name adminRatingScore completedJobsCount');
+  const service = await Service.findById(req.params.id).populate('provider', 'name adminRatingScore completedJobsCount businessLocation businessLicenseFile certificationFile');
   if (!service) {
     return res.status(404).json({ success: false, message: 'Service not found' });
   }
   res.status(200).json({ success: true, data: service });
+});
+
+export const downloadServiceFile = catchError(async (req, res) => {
+  const { id, fileType } = req.params;
+  const service = await Service.findById(id).populate('provider');
+
+  if (!service) {
+    return res.status(404).json({ success: false, message: 'Service not found' });
+  }
+
+  let fileObj = null;
+  if (fileType === 'certification') {
+    fileObj = service.certificationFile || service.provider?.certificationFile;
+  } else {
+    fileObj = service.businessLicense || service.businessLicenseFile || service.provider?.businessLicenseFile;
+  }
+
+  if (!fileObj || !fileObj.data) {
+    return res.status(404).json({ success: false, message: 'File data not found in database' });
+  }
+
+  res.setHeader('Content-Type', fileObj.contentType || 'application/octet-stream');
+  res.setHeader('Content-Disposition', `attachment; filename="${fileType}-file"`);
+  return res.send(fileObj.data);
 });
