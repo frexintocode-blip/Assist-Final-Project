@@ -127,7 +127,6 @@ const Home = () => {
                   style={{ 
                     cursor: "pointer", 
                     transition: "all 0.25s ease-in-out",
-                    /* --- DARKER BLUE ELEVATION SHADOW --- */
                     boxShadow: "0 14px 30px -4px rgba(15, 23, 42, 0.12), 0 8px 20px -2px rgba(29, 78, 216, 0.35)"
                   }}
                   onMouseEnter={(e) => {
@@ -187,7 +186,6 @@ const Home = () => {
                     <span>Location: {selectedService.provider?.businessLocation || selectedService.businessLocation}</span>
                   </div>
                 )}
-
                 
                 <div className="row g-2 mb-3">
                   {(selectedService.provider?.businessLicenseFile || selectedService.businessLicenseFile) && (
@@ -195,7 +193,7 @@ const Home = () => {
                       <div className="p-3 bg-light rounded-3 text-center border h-100 d-flex flex-column justify-content-center align-items-center">
                         <h6 className="fw-bold text-dark mb-2" style={{ fontSize: '0.85rem' }}>Business License</h6>
                         <a 
-                          href={`${import.meta.env.VITE_API_URL}${selectedService.provider?.businessLicenseFile || selectedService.businessLicenseFile}`} 
+                          href={`http://localhost:5000/api/services/${selectedService._id}/download/businessLicense`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="btn btn-outline-primary btn-sm rounded-pill w-100 py-1"
@@ -212,7 +210,7 @@ const Home = () => {
                       <div className="p-3 bg-light rounded-3 text-center border h-100 d-flex flex-column justify-content-center align-items-center">
                         <h6 className="fw-bold text-dark mb-2" style={{ fontSize: '0.85rem' }}>Certifications</h6>
                         <a 
-                          href={`${import.meta.env.VITE_API_URL}${selectedService.provider?.certificationFile || selectedService.certificationFile}`} 
+                          href={`http://localhost:5000/api/services/${selectedService._id}/download/certification`} 
                           target="_blank" 
                           rel="noreferrer" 
                           className="btn btn-outline-primary btn-sm rounded-pill w-100 py-1"
