@@ -10,6 +10,7 @@ export const createService = catchError(async (req, res) => {
     category,
     description,
     yearsOfExperience,
+    status: 'pending',
     certificationFile: req.file ? {
       data: req.file.buffer,
       contentType: req.file.mimetype
@@ -26,8 +27,7 @@ export const getApprovedServices = catchError(async (req, res) => {
   if (category) filter.category = category;
 
   const services = await Service.find(filter)
-    .populate('provider', 'name adminRatingScore completedJobsCount businessLocation businessLicenseFile certificationFile')
-    .sort({ 'provider.adminRatingScore': -1 });
+    .populate('provider', 'name adminRatingScore completedJobsCount businessLocation businessLicenseFile certificationFile');
 
   const adminContact = {
     phone: process.env.ADMIN_PHONE || "+251 911 00 00 00",
