@@ -5,7 +5,11 @@ import { catchError } from '../utils/catchError.js';
 export const getAdminDashboard = catchError(async (req, res) => {
   const services = await Service.find()
     .populate('provider', 'name email phone businessLicenseFile businessLocation adminRatingScore completedJobsCount');
-  res.json(services);
+  
+  // Filter out services with missing provider references to prevent hanging or null errors
+  const validServices = services.filter(service => service.provider != null);
+  
+  res.json(validServices);
 });
 
 export const moderateService = catchError(async (req, res) => {
