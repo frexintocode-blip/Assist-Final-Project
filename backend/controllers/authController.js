@@ -30,6 +30,14 @@ const sendTokenResponse = (user, statusCode, res) => {
 export const registerUser = catchError(async (req, res) => {
   const { name, email, password, phone, role, businessLocation } = req.body;
 
+  // Block unauthorized public creation of admin accounts via API or Postman
+  if (role === 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Unauthorized: Admin accounts cannot be created via public registration.'
+    });
+  }
+
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
